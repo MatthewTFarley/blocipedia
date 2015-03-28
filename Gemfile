@@ -11,6 +11,8 @@ group :development do
   gem 'sqlite3'
 end
 
+gem 'haml'
+gem "haml-rails", "~> 0.9"
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'

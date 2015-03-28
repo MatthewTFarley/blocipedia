@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %title Blocipedia
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          %a.navbar-brand{:href => welcome_index_path} Blocipedia
+        %ul.nav.nav-tabs
+          %li= link_to "About", welcome_about_path, id: "navbar-element"
+    .container
+      = yield
