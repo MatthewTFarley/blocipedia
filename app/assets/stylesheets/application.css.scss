@@ -2,10 +2,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-#navbar-element {
-  height: 51px;
-  padding-top: 14px;
-}
 .nav-tabs {
   border-bottom: none;
+}
+.nav-tabs > li > a {
+  height: 51px;
+  padding-top: 14px;
 }

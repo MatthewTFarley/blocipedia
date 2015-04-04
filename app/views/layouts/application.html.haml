@@ -10,8 +10,28 @@
     .navbar.navbar-default
       .container-fluid
         .navbar-header
-          %a.navbar-brand{:href => welcome_index_path} Blocipedia
-        %ul.nav.nav-tabs
-          %li= link_to "About", welcome_about_path, id: "navbar-element"
+          %a.navbar-brand{href: welcome_index_path} Blocipedia
+        %ul.nav.navbar-right.nav-tabs
+          %li= link_to "About", welcome_about_path
+          - if current_user
+            %li= link_to "#{current_user.name}", edit_user_path(current_user.id)
+            %li= link_to "Log out", logout_path, method: "delete"
+          - else
+            %li= link_to "Sign up", signup_path
+            %li= link_to "Sign in", login_path
+          
+    - if flash[:notice]
+      .alert.alert-success
+        %button.close{"data-dismiss" => "alert", type: "button"} x
+        = flash[:notice]
+    - if flash[:danger]
+      .alert.alert-danger
+        %button.close{"data-dismiss" => "alert", type: "button"} x
+        = flash[:danger]
+    - if flash[:alert]
+      .alert.alert-warning
+        %button.close{"data-dismiss" => "alert", type: "button"} x
+        = flash[:alert]
+        
     .container
       = yield
