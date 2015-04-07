@@ -2,10 +2,43 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  background: #D1C5B7;
+  font-family: "Open Sans";
+}
+.navbar-default {
+  border: none;
+  margin-bottom: 0px;
+}
+#header {
+  background: #856941;
+}
+#brand {
+  color: white;
+  &:hover {
+    background: #D1C5B7;
+    color: #0193B7;
+  }
+}
 .nav-tabs {
   border-bottom: none;
 }
 .nav-tabs > li > a {
   height: 51px;
   padding-top: 14px;
+  border: none;
+  border-radius: 0px;
+  color: white;
+  margin-right: 0px;
+  &:hover {
+    background: #D1C5B7;
+    color: #0193B7;
+  }
+}
+#content {
+  background-color: none;
+}
+.well {
+  background: #BB9F78;
+  border: none;
 }

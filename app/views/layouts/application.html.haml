@@ -6,11 +6,12 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   %body
     .navbar.navbar-default
-      .container-fluid
+      .container-fluid#header
         .navbar-header
-          %a.navbar-brand{href: welcome_index_path} Blocipedia
+          %a.navbar-brand#brand{href: welcome_index_path} Blocipedia
         %ul.nav.navbar-right.nav-tabs
           %li= link_to "About", welcome_about_path
           - if current_user
@@ -33,5 +34,5 @@
         %button.close{"data-dismiss" => "alert", type: "button"} x
         = flash[:alert]
         
-    .container
+    .container#content
       = yield
