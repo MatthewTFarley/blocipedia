@@ -11,6 +11,7 @@ group :development do
   gem 'sqlite3'
 end
 
+gem 'figaro', '1.0'
 gem 'haml'
 gem "haml-rails", "~> 0.9"
 gem 'bootstrap-sass', '~> 3.3.4'

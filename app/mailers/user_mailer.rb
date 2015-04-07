@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'hello@blocipedia.com'
+  default from: 'hello@mtfarley-blocipedia.com'
   
   def confirmation_email(user)
     @user = user
