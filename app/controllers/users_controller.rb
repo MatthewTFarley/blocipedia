@@ -39,12 +39,13 @@ class UsersController < ApplicationController
     
     if @user.confirmation_token == params[:confirmation_token]
       @user.confirmed_at = DateTime.now
-      @user.save
+      @user.save!
       flash[:notice] = "You have successfully confirmed your account!"
       session[:user_id] = @user.id
-      redirect_to root_url
+      redirect_to root_path
     else
-      render :unauthorized
+      flash[:error] = "Incorrect confirmation token."
+      redirect_to root_path
     end
   end
   
