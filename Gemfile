@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
 gem 'rails', '4.1.7'
 
 group :production do
@@ -9,6 +10,14 @@ end
 
 group :development do
   gem 'sqlite3'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.1.0'
+  gem 'capybara', '~> 2.4.4'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'simplecov', :require => false
 end
 
 gem 'figaro', '1.0'
