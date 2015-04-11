@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404103645) do
+ActiveRecord::Schema.define(version: 20150411103543) do
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -22,5 +22,16 @@ ActiveRecord::Schema.define(version: 20150404103645) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
   end
+
+  create_table "wikis", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "private"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wikis", ["user_id"], name: "index_wikis_on_user_id"
 
 end
