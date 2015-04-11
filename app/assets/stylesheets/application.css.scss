@@ -12,6 +12,7 @@ body {
 }
 #header {
   background: #856941;
+  padding-right: 0px;
 }
 #brand {
   color: white;
@@ -41,4 +42,7 @@ body {
 .well {
   background: #BB9F78;
   border: none;
+}
+#main-well {
+  margin-top: 10px;
 }

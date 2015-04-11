@@ -11,9 +11,12 @@
     .navbar.navbar-default
       .container-fluid#header
         .navbar-header
-          %a.navbar-brand#brand{href: welcome_index_path} Blocipedia
-        %ul.nav.navbar-right.nav-tabs
-          %li= link_to "About", welcome_about_path
+          %a.navbar-brand#brand{href: root_path} Blocipedia
+        %ul.nav.nav-tabs.pull-left
+          %li= link_to "About", about_path
+        %ul.nav.nav-tabs.pull-right
+          %li= link_to "Wikis", wikis_path
+          %li= link_to "Create Wiki", new_wiki_path
           - if current_user
             %li= link_to "#{current_user.name}", edit_user_path(current_user.id)
             %li= link_to "Log out", logout_path, method: "delete"

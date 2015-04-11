@@ -1,0 +1,9 @@
+%h1 Edit Wiki
+.row
+  .col-md-4
+    %p Guidelines for wikis:
+    %ul
+      %li Title must be at least five characters.
+      %li Body must be at least 20 characters.
+  .col-md-8
+    = render partial: 'form', locals: { wiki: @wiki }

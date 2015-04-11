@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       if user.confirmed_at
         session[:user_id] = user.id
-        redirect_to root_url, notice: "Welcome #{user.name}!"
+        redirect_to wikis_path, notice: "Welcome #{user.name}!"
       else
         flash.now.alert = "Please confirm your account by checking your email for a confirmation link."
         render "new"

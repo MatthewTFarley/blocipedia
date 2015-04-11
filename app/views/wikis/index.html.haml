@@ -1,0 +1,11 @@
+%h1 Select a wiki
+.row
+  .col-md-12
+    - @wikis.each do |wiki|
+      .media
+        .media-body
+          %h4.media-heading
+            = link_to wiki.title, wiki
+.row  
+  .col-md-2#button-group
+    = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'

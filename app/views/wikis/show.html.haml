@@ -1,0 +1,10 @@
+.row  
+  .col-md-12
+    = render partial: 'wiki', locals: { wiki: @wiki }
+.row
+  .col-md-2#button-group
+    = link_to "Edit", edit_wiki_path, class: 'btn btn-success'
+    = link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger',
+                data: { confirm: 'Are you sure you want to delete this post?' }
+  .col-md-12     
+    = link_to "All Wikis", wikis_path
