@@ -19,10 +19,6 @@ class User < ActiveRecord::Base
     role == 'admin'
   end
   
-  def role?
-    self.role
-  end
-  
   def create?
     standard?
   end
@@ -37,6 +33,10 @@ class User < ActiveRecord::Base
   
   def destroy?(resource)
     admin? || owns?(resource)
+  end
+  
+  def skip_confirmation!
+    self.confirmed_at = DateTime.now
   end
   
   private

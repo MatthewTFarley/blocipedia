@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authorize, only: [:edit, :update]
-  
+
   def new
     @user = User.new
   end
@@ -10,7 +10,9 @@ class UsersController < ApplicationController
     @user.confirmation_token = SecureRandom.hex(16)
     if @user.save
       flash[:notice] = "Welcome to Blocipedia #{@user.name}! Check your email for a link to confirm your account."
-      UserMailer.confirmation_email(@user).deliver
+      if !@user.confirmed_at
+        UserMailer.confirmation_email(@user).deliver
+      end
       redirect_to root_url
     else
       flash[:error] = "Something went wrong. Please try again."

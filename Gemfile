@@ -20,6 +20,7 @@ group :test do
   gem 'simplecov', :require => false
 end
 
+gem 'faker'
 gem 'figaro', '1.0'
 gem 'haml'
 gem "haml-rails", "~> 0.9"
