@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411103543) do
+ActiveRecord::Schema.define(version: 20150411173544) do
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150411103543) do
     t.datetime "updated_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
+    t.string   "role"
   end
 
   create_table "wikis", force: true do |t|

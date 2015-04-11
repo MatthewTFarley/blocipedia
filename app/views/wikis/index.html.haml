@@ -6,6 +6,7 @@
         .media-body
           %h4.media-heading
             = link_to wiki.title, wiki
-.row  
-  .col-md-2#button-group
-    = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'
+- if current_user
+  .row  
+    .col-md-2#button-group
+      = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'
