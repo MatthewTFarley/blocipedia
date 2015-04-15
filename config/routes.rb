@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'charges/create'
+
   get 'about' => 'welcome#about'
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
@@ -7,4 +9,5 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
   
   resources :users, :wikis, :sessions
+  resources :charges, only: [:new, :create]
 end
