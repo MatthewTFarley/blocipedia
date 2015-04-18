@@ -45,8 +45,11 @@ class User < ActiveRecord::Base
   end
   
   def downgrade_account!
-    self.role = "standard" unless self.role == "admin"
-    save!
+    ActiveRecord::Base.transaction do
+      self.role = "standard" unless self.role == "admin"
+      save!
+      Wiki.publicize_wikis! self
+    end
   end
   
   private

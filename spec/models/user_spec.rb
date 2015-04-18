@@ -35,8 +35,8 @@ describe User do
     
   describe "#downgrade_account!" do
     it "should change the user's role to 'standard'" do
-      @user.upgrade_account!
-      expect(@user.role).to eq 'premium'
+      @user.downgrade_account!
+      expect(@user.role).to eq 'standard'
     end
   end
 end
