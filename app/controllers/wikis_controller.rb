@@ -17,7 +17,7 @@ class WikisController < ApplicationController
   end
 
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.available_wikis_for current_user
   end
 
   def show
@@ -57,7 +57,7 @@ class WikisController < ApplicationController
   private
   
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
   
 end

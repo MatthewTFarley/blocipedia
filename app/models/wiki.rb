@@ -12,6 +12,24 @@ class Wiki < ActiveRecord::Base
   def markdown_body
     render_as_markdown body
   end
+
+  def self.available_wikis_for user
+    return public_wikis if user.blank?
+    return all if user.admin?
+    
+    public_wikis + where(user:user)
+  end
+  
+  def self.public_wikis
+    where(private:false)
+  end
+  
+  def self.publicize_wikis! user
+    wikis_to_publicize = where(user:user).where(private:true)
+    wikis_to_publicize.each do |wiki|
+      wiki.update! private: false
+    end
+  end
   
   private
   
@@ -21,5 +39,4 @@ class Wiki < ActiveRecord::Base
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     (redcarpet.render text).html_safe
   end
-  
 end

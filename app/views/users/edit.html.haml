@@ -21,5 +21,12 @@
         .form-group
           = f.label :password_confirmation
           = f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter new password confirmation"
+        %big
+          %strong
+            %p= "Account Status: #{current_user.role.capitalize}"
         .form-group
           = f.submit "Update", class: 'btn btn-success', method: "put"
+        - if !(current_user.admin? || current_user.standard?)
+          = link_to "Downgrade Account", downgrade_path, class: 'btn btn-danger'
+        - elsif !current_user.admin?
+          = link_to "Upgrade to Premium", upgrade_path, class: 'btn btn-primary'

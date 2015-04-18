@@ -39,6 +39,16 @@ class User < ActiveRecord::Base
     self.confirmed_at = DateTime.now
   end
   
+  def upgrade_account!
+    self.role = "premium" unless self.role == "admin"
+    save!
+  end
+  
+  def downgrade_account!
+    self.role = "standard" unless self.role == "admin"
+    save!
+  end
+  
   private
   
   def initialize_role

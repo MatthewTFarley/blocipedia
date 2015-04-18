@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def authorize
-    redirect_to login_url, alert: "You must sign in first!" if current_user.nil?
+    redirect_to login_path, alert: "You must sign in first!" if current_user.nil?
+  end
+  
+  def check_upgrade_authorization
+    redirect_to wikis_path, alert: "Your account has already been upgraded." if current_user.admin? || current_user.premium?
   end
 end

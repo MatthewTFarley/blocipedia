@@ -1,4 +1,6 @@
 class ChargesController < ApplicationController
+  before_filter :authorize, :check_upgrade_authorization
+  
   def new
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key] }",
@@ -13,16 +15,23 @@ class ChargesController < ApplicationController
       card: params[:stripeToken]
       )
 
-    # Where the real magic happens
     charge = Stripe::Charge.create(
       customer: customer.id,
       amount: Amount.default,
       description: "Blocipedia Premium Membership - #{current_user.email}",
       currency: 'usd'
       )
-
-    flash[:success] = "You have successfully upgraded your account to premium status!"
-    redirect_to wikis_path
+    
+    user = User.find(current_user.id)
+    user.upgrade_account!
+    
+    if user.save
+      flash.now[:success] = "You have successfully upgraded your account to premium!"
+      redirect_to wikis_path
+    else
+      flash.now[:error] = "There was a problem upgrading your account. Please try again."
+      render :new
+    end
 
   rescue Stripe::CardError => e
     flash[:error] = e.message

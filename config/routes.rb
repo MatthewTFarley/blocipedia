@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   get '/users/:id/confirm', to: "users#confirm", as: 'confirm'
+  get 'upgrade', to: "charges#new"
+  get '/downgrade', to: "users#downgrade", as: 'downgrade'
   root to: 'welcome#index'
   
   resources :users, :wikis, :sessions

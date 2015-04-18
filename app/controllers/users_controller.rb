@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(user_params)
-      flash[:notice] = "User profile was successfully updated."
+      flash.now[:notice] = "User profile was successfully updated."
       redirect_to root_path
     else
-      flash[:error] = "Error saving profile changes. Please try again"
+      flash.now[:error] = "Error saving profile changes. Please try again."
       render :edit
     end
   end
@@ -51,10 +51,20 @@ class UsersController < ApplicationController
     end
   end
   
+  def downgrade
+    @user = current_user
+    if @user.downgrade_account!
+      flash.now[:success] = "Your account was successfully downgraded."
+      redirect_to wikis_path
+    else
+      flash.now[:error] = "There was an error downgrading your account. Please try again."
+      render :edit
+    end
+  end
+  
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
 end
