@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Wiki do
   describe "#available_wikis_for" do
-    it "lists all public wikis and only user-owned private wikis to a that user" do
+    it "lists all public wikis and only user-owned private wikis to that user" do
       user = User.create! name: "john", email: "example@example.com", password: "helloworld", password_confirmation: "helloworld"
 
       private_wiki = Wiki.create! user: user, title: "This is a test wiki", body: "12345678912345678912345", private: true
@@ -12,7 +12,7 @@ describe Wiki do
 
       available_wikis = Wiki.available_wikis_for user
 
-      expect(available_wikis).to eq [private_wiki, public_wiki]
+      expect(available_wikis).to eq [public_wiki, private_wiki]
     end
 
     it "lists only public wikis for unauthenticated users" do
@@ -50,7 +50,7 @@ describe Wiki do
       
       user.downgrade_account!
       
-      expect(user.wikis.where(private: false).count).to eq(3)
+      expect(user.wikis.all? {|wiki| !wiki.private}).to eq(true)
       expect(Wiki.where(private: true).count).to eq 1
     end
   end 
