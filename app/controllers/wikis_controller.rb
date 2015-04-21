@@ -1,5 +1,5 @@
 class WikisController < ApplicationController
-  before_filter :authorize, except: [:index, :show]
+  before_action :authorize, except: [:index, :show]
   
   def new
     @wiki = Wiki.new

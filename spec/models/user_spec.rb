@@ -14,6 +14,7 @@ describe User do
     another_user = User.new name: "matt", email: "matt@example.com", password: "matt", password_confirmation: "matt"
     another_user.skip_confirmation!
     expect{another_user.save!}.to raise_error(ActiveRecord::RecordInvalid)
+    expect(another_user.errors).to be_added :email, :taken
     
     expect(User.count).to eq 1
   end
@@ -35,6 +36,7 @@ describe User do
     
   describe "#downgrade_account!" do
     it "should change the user's role to 'standard'" do
+      @user.update! role: "premium"
       @user.downgrade_account!
       expect(@user.role).to eq 'standard'
     end

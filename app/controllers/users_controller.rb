@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authorize, only: [:edit, :update]
+  before_action :authorize, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(user_params)
-      flash.now[:notice] = "User profile was successfully updated."
+      flash[:notice] = "User profile was successfully updated."
       redirect_to root_path
     else
-      flash.now[:error] = "Error saving profile changes. Please try again."
+      flash[:error] = "Error saving profile changes. Please try again."
       render :edit
     end
   end
