@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   
-  def authorize
+  def authenticate_user
     redirect_to login_path, alert: "You must sign in first!" if current_user.nil?
   end
   

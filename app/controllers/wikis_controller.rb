@@ -1,5 +1,7 @@
 class WikisController < ApplicationController
-  before_action :authorize, except: [:index, :show]
+  before_action :set_wiki, except: [:new, :create, :index]
+  before_action :authenticate_user, except: [:index]
+  before_action :authorize, only: [:show]
   
   def new
     @wiki = Wiki.new
@@ -21,15 +23,12 @@ class WikisController < ApplicationController
   end
 
   def show
-    @wiki = Wiki.find(params[:id])
   end
 
   def edit
-    @wiki = Wiki.find(params[:id])
   end
 
   def update
-    @wiki = Wiki.find(params[:id])    
     if @wiki.update_attributes(wiki_params)
       flash[:notice] = "Wiki successfully updated!"
       redirect_to @wiki
@@ -39,12 +38,7 @@ class WikisController < ApplicationController
     end
   end
 
-  def delete
-    @wiki = Wiki.find(params[:id])
-  end
-
   def destroy
-    @wiki = Wiki.find(params[:id])
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
@@ -56,8 +50,16 @@ class WikisController < ApplicationController
   
   private
   
+  def set_wiki
+    @wiki = Wiki.find(params[:id])
+  end
+
   def wiki_params
     params.require(:wiki).permit(:title, :body, :private)
+  end
+
+  def authorize
+    redirect_to wikis_path, notice: "You are not authorized to view that resource." unless current_user.view? @wiki
   end
   
 end

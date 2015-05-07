@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
   def destroy?(resource)
     admin? || owns?(resource)
   end
+
+  def view?(resource)
+    admin? || owns?(resource) || !resource.private
+  end
   
   def skip_confirmation!
     self.confirmed_at = DateTime.now
