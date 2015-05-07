@@ -17,7 +17,7 @@ class Wiki < ActiveRecord::Base
     return public_wikis if user.blank?
     return all if user.admin?
     
-    public_wikis + where(user:user)
+    public_wikis + where(user:user, private:true)
   end
   
   def self.public_wikis

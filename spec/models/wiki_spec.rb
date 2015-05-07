@@ -9,10 +9,11 @@ describe Wiki do
       another_user = User.create! name: 'jane', email: "jane@example.com", password: "helloworld", password_confirmation: "helloworld"
       Wiki.create! user: another_user, title: "This is a test wiki", body: "12345678912345678912345", private: true
       public_wiki = Wiki.create! user: another_user, title: "This is a test wiki", body: "12345678912345678912345", private: false
+      owned_public_wiki = Wiki.create! user: user, title: "This is a test wiki", body: "12345678912345678912345", private: false
 
       available_wikis = Wiki.available_wikis_for user
 
-      expect(available_wikis).to eq [public_wiki, private_wiki]
+      expect(available_wikis).to eq [public_wiki, owned_public_wiki, private_wiki]
     end
 
     it "lists only public wikis for unauthenticated users" do
