@@ -1,5 +1,5 @@
 class ChargesController < ApplicationController
-  before_action :authorize, :check_upgrade_authorization
+  before_action :authenticate_user, :check_upgrade_authorization
   
   def new
     @stripe_btn_data = {

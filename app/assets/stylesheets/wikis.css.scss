@@ -1,6 +1,33 @@
 #button-group {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 #button-group > a {
   margin: 0px 5px 10px 0px;
+}
+#collaboration-header {
+  width: 350px;
+  border-bottom: 1px solid #856941;
+}
+
+#collaboration-input {
+  width: 400px;
+}
+
+.glyphicon-unchecked {
+  background-color: white;
+  font-size: 1.2em;
+  padding: 0px 0px 0px 0px;
+  a:hover {
+    background: transparent;
+    text-decoration: none;
+  }
+}
+
+span.delete {
+  display: inline;
+  background-color: transparent;
+  a:hover {
+    background: transparent;
+    text-decoration: none;
+  }
 }

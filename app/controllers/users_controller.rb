@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authorize, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :update, :confirm]
+  before_action :authenticate_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -21,12 +22,9 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
-
     if @user.update_attributes(user_params)
       flash[:notice] = "User profile was successfully updated."
       redirect_to root_path
@@ -36,9 +34,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def confirm
-    @user = User.find(params[:id])
-    
+  def confirm    
     if @user.confirmation_token == params[:confirmation_token]
       @user.confirmed_at = DateTime.now
       @user.save!
@@ -63,6 +59,10 @@ class UsersController < ApplicationController
   end
   
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

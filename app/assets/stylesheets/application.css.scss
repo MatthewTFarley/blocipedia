@@ -2,6 +2,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.btn.btn-primary{
+  background-color: #AE9167;
+  border-color: #856941;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+  color: white;
+  background-color: #856941;
+  border-color: #856941;
+}
+
 body {
   background: #D1C5B7;
   font-family: "Open Sans";
@@ -37,7 +48,7 @@ body {
   }
 }
 #content {
-  background-color: none;
+  background: transparent;
 }
 .well {
   background: #BB9F78;
@@ -45,4 +56,23 @@ body {
 }
 #main-well {
   margin-top: 10px;
+}
+
+.container {
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.panel {
+  box-shadow: none;
+}
+.panel.panel-heading {
+  background-color: whitesmoke;
+  border-bottom: 1px solid #dddddd;
+}
+.panel-title {
+  background-color: whitesmoke;
+}
+.panel-footer {
+  margin-bottom: 0px;
 }

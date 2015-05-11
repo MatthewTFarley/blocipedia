@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  delete 'collaborations/destroy'
+
   get 'charges/create'
 
   get 'about' => 'welcome#about'
