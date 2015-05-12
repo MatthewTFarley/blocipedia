@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  delete 'collaborations/destroy'
 
   get 'charges/create'
 
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
   get '/downgrade', to: "users#downgrade", as: 'downgrade'
   root to: 'welcome#index'
   
+  resources :collaborations, only: [:create, :destroy]
   resources :users, :wikis, :sessions
   resources :charges, only: [:new, :create]
 end

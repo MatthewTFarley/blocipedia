@@ -19,6 +19,6 @@
   - if current_user.premium? == 'premium' || current_user.admin?
     .form-group
       = f.label 'Add a collaborator:'
-      = f.select :users, potential_collaborator_list
+      = f.select :users, potential_collaborator_list, {multiple: true, include_blank: true}
   .form-group
     = f.submit "Save", class: 'btn btn-success'

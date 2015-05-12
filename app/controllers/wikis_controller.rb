@@ -30,17 +30,11 @@ class WikisController < ApplicationController
 
   def update
     if @wiki.update_attributes(wiki_params)
-      user = params[:wiki][:users]
-      if params[:method] == "delete"
-        @wiki.users.delete(user)
-      elsif !(@wiki.users.each {|user| user.name == user} == [])
-        flash[:notice] = "That user is already a collaborator for this wiki."
-        render 'edit'
-      elsif user == ""|| @wiki.users << User.find_by(name: user)
-        @wiki.save!
-        flash[:notice] = "Wiki successfully updated!"
-        redirect_to @wiki
-      end
+      user_id = params[:wiki][:users]
+      @wiki.users << User.find(user_id) unless user_id.blank?
+      @wiki.save!
+      flash[:notice] = "Wiki successfully updated!"
+      redirect_to @wiki
     else
       flash[:error] = "There was a problem while updating this wiki. Please try again."
       render 'edit'

@@ -13,12 +13,12 @@
         .col-md-3
           Delete
       %br
-  - @wiki.users.each do |user|
+  - @wiki.collaborations.each do |collaboration|
     %row
       .col-md-3
-        = user.name
+        = collaboration.user.name
       - if current_user.owns? @wiki
         .col-md-1
           %span.badge.delete
-            = link_to "", @wiki, controller: :wiki_controller, action: :update, class: 'glyphicon glyphicon-unchecked', data: { confirm: 'Are you sure?' }
+            = link_to "", collaboration_path(collaboration), method: :delete, class: 'glyphicon glyphicon-unchecked', data: { confirm: 'Are you sure?' }
       %br

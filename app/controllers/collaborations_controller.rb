@@ -1,9 +1,9 @@
 class CollaborationsController < ApplicationController
   def destroy
-    @collaborator = Collaboration.find(params[:user_id][:wiki_id])
-    if @collaborator.destroy!
+    @collaboration = Collaboration.find(params[:id])
+    if @collaboration.destroy
       flash[:success] = "Collaborator successfully removed."
-      render 'wiki'
+      redirect_to @collaboration.wiki
     else
       flash[:error] = "Something went wrong. Please try again."
       render 'wiki'
