@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def view?(resource)
-    admin? || owns?(resource) || !resource.private
+    admin? || owns?(resource) || !resource.private || resource.collaborators.includes(self)
   end
   
   def skip_confirmation!

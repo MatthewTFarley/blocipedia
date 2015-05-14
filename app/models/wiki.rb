@@ -1,7 +1,7 @@
 class Wiki < ActiveRecord::Base
   belongs_to :user
   has_many :collaborations, dependent: :destroy
-  has_many :users, through: :collaborations, dependent: :destroy
+  has_many :collaborators, through: :collaborations, dependent: :destroy, source: :user
 
   
   validates :title, length: { minimum: 5 }, presence: true
@@ -16,15 +16,24 @@ class Wiki < ActiveRecord::Base
     render_as_markdown body
   end
 
-  def self.available_wikis_for user
+  def self.viewable_wikis user
     return public_wikis if user.blank?
     return all if user.admin?
-    
-    public_wikis + where(user:user, private:true)
+    return public_wikis + privately_owned_wikis(user) + collaborative_wikis(user) if user.premium?
+    return public_wikis + collaborative_wikis(user) if user.standard?
   end
-  
+
   def self.public_wikis
     where(private:false)
+  end
+
+  def self.privately_owned_wikis user
+    where(user: user, private:true)
+  end
+
+  def self.collaborative_wikis user
+    user_collaborations = Collaboration.where(user_id: user).pluck(:wiki_id)
+    where('id in (?)', user_collaborations)
   end
   
   def self.publicize_wikis! user

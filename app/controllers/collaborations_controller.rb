@@ -2,7 +2,7 @@ class CollaborationsController < ApplicationController
   def destroy
     @collaboration = Collaboration.find(params[:id])
     if @collaboration.destroy
-      flash[:success] = "Collaborator successfully removed."
+      flash[:notice] = "Collaborator successfully removed."
       redirect_to @collaboration.wiki
     else
       flash[:error] = "Something went wrong. Please try again."

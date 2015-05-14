@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
   before_action :set_wiki, except: [:new, :create, :index]
-  before_action :authenticate_user, except: [:index]
+  before_action :authenticate_user, except: [:index, :show]
   before_action :authorize, only: [:show]
   
   def new
@@ -19,7 +19,7 @@ class WikisController < ApplicationController
   end
 
   def index
-    @wikis = Wiki.available_wikis_for current_user
+    @wikis = Wiki.viewable_wikis current_user
   end
 
   def show
@@ -30,8 +30,8 @@ class WikisController < ApplicationController
 
   def update
     if @wiki.update_attributes(wiki_params)
-      user_id = params[:wiki][:users]
-      @wiki.users << User.find(user_id) unless user_id.blank?
+      user_id = params[:wiki][:collaborators]
+      @wiki.collaborators << User.find(user_id) unless user_id.blank?
       @wiki.save!
       flash[:notice] = "Wiki successfully updated!"
       redirect_to @wiki
@@ -62,7 +62,8 @@ class WikisController < ApplicationController
   end
 
   def authorize
-    redirect_to wikis_path, notice: "You are not authorized to view that resource." unless current_user.view? @wiki
+    
+    redirect_to wikis_path, flash: "You are not authorized to view that resource." unless @wiki.private == false|| current_user.view?(@wiki)
   end
   
 end
