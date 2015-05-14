@@ -19,8 +19,7 @@ class Wiki < ActiveRecord::Base
   def self.viewable_wikis user
     return public_wikis if user.blank?
     return all if user.admin?
-    return public_wikis + privately_owned_wikis(user) + collaborative_wikis(user) if user.premium?
-    return public_wikis + collaborative_wikis(user) if user.standard?
+    return public_wikis + privately_owned_wikis(user) + collaborative_wikis(user)
   end
 
   def self.public_wikis

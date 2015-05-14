@@ -19,3 +19,5 @@
 /config/application.yml
 
 /coverage
+.DS_store
+/public/assets

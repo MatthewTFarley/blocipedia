@@ -16,7 +16,7 @@
     .form-group
       = f.check_box :private
       = f.label :private
-  - if current_user.premium? == 'premium' || current_user.admin?
+  - if current_user.premium? || current_user.admin?
     .form-group
       = f.label 'Add a collaborator:'
       = f.select :collaborators, potential_collaborator_list, {}, include_blank: true
