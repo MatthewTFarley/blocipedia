@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   after_initialize :initialize_role
   
-  has_many :collaborations, dependent: :destroy
   has_many :wikis, dependent: :destroy
-  has_many :wikis, through: :collaborations
+  has_many :collaborations, dependent: :destroy
+  has_many :collaborative_wikis, through: :collaborations, source: :wiki
 
   has_secure_password
   validates_presence_of :name, :email

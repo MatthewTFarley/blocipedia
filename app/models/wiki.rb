@@ -31,8 +31,7 @@ class Wiki < ActiveRecord::Base
   end
 
   def self.collaborative_wikis user
-    user_collaborations = Collaboration.where(user_id: user).pluck(:wiki_id)
-    where('id in (?)', user_collaborations)
+    user.collaborative_wikis
   end
   
   def self.publicize_wikis! user
