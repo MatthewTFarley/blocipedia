@@ -13,4 +13,10 @@ class Collaboration < ActiveRecord::Base
     collaborator_to_remove = where(wiki: wiki, user: user)
     collaborator_to_remove.destroy!
   end
+
+  def self.add_collaborators wiki, params
+    return [] if params[:wiki][:collaborators].blank?
+    user_ids = params[:wiki][:collaborators].reject{|element| element.blank?}
+    wiki.collaborators  = User.find(user_ids) # unless user_ids.empty?
+  end
 end

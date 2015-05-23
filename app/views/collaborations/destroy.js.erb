@@ -1,0 +1,13 @@
+<% if @collaboration.destroyed? %>
+  $('#collaboration-' +<%= @collaboration.id %>).find('a').removeClass("glyphicon glyphicon-unchecked").addClass("glyphicon glyphicon-check");
+  $('#collaboration-' +<%= @collaboration.id %>).fadeOut(function(){
+    $('#collaboration-' +<%= @collaboration.id %>).remove();
+  });
+  <% if @collaboration.wiki.collaborations.blank? %>
+    $('#collaborator-row').fadeOut(function(){
+      $('#collaborator-row').remove();
+    });
+  <% end %>
+<% else %>
+  $('#collaboration-' +<%= @collaboration.id %>).prepend("<div class='alert alert-danger'>There was an error deleting this collaborator.</div>");
+<% end %>

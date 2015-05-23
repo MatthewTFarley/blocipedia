@@ -1,12 +1,16 @@
 class CollaborationsController < ApplicationController
+  respond_to :html, :js
   def destroy
     @collaboration = Collaboration.find(params[:id])
-    if @collaboration.destroy
-      flash[:notice] = "Collaborator successfully removed."
-      redirect_to @collaboration.wiki
-    else
+    @wiki = @collaboration.wiki
+    if !@collaboration.destroy
       flash[:error] = "Something went wrong. Please try again."
       render 'wiki'
+    end
+
+    respond_with(@collaboration) do |format|
+      format.html { redirect_to @wiki}
+      format.js
     end
   end
 

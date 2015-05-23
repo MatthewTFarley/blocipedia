@@ -1,12 +1,25 @@
-%h1 Select a wiki
-.row
-  .col-md-12
+.panel.panel-default
+  .panel-heading
+    .panel-title
+      %h1 Select a Wiki
+  %table.table
+    %tr
+      %td
+      %td 
+        %h4
+          %strong Title
+      %td
+        %h4
+          %strong Author
     - @wikis.each do |wiki|
-      .media
-        .media-body
-          %h4.media-heading
-            = link_to wiki.title, wiki
-- if current_user
-  .row  
-    .col-md-2#button-group
+      %tr
+        %td
+          %strong= @index
+        %td= link_to wiki.title, wiki
+        %td=  wiki.user.name
+        - @index += 1
+  .panel-footer  
+    = will_paginate @wikis, class: "apple_pagination"
+    %br
+    - if current_user
       = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'

@@ -1,9 +1,11 @@
-%h1 New Wiki
-.row
-  .col-md-4
-    %p Guidelines for wikis:
-    %ul
-      %li Title must be at least five characters.
-      %li Body must be at least 20 characters.
-  .col-md-8
-    = render partial: 'form', locals: { wiki: @wiki }
+.panel.panel-default
+  .panel-heading
+    .panel-title
+      %h1 New Wiki
+  .panel-body
+    %h3 Guidelines for wikis:
+    %p Body must be at least 10 characters.
+    .col-md-8
+      = render partial: 'form', locals: { wiki: @wiki }
+  .panel-footer
+    = link_to "Back", wikis_path

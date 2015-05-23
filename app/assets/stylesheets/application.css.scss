@@ -50,12 +50,19 @@ body {
 #content {
   background: transparent;
 }
-.well {
-  background: #BB9F78;
-  border: none;
-}
-#main-well {
+
+.jumbotron {
   margin-top: 10px;
+  border: none;
+  box-shadow: 5px 5px 5px #888888;
+}
+.well {
+  margin-top: 10px;
+  border: none;
+  box-shadow: 5px 5px 5px #888888;
+}
+.panel.panel-default {
+   box-shadow: 5px 5px 5px #888888;
 }
 
 .container {

@@ -12,13 +12,13 @@
   = form_group_tag(wiki.errors[:body]) do
     = f.label :body
     = f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body"
-  - if current_user.admin? || current_user.premium? || wiki.private
+  - if !current_user.standard? && (current_user.owns?(wiki) || wiki.created_at.blank?)
     .form-group
       = f.check_box :private
       = f.label :private
-  - if current_user.premium? || current_user.admin?
+  - if !current_user.standard? && wiki.private && User.count > 1
     .form-group
-      = f.label 'Add a collaborator:'
-      = f.select :collaborators, potential_collaborator_list, {}, include_blank: true
+      = f.label 'Add Collaborators:'
+      = f.select :collaborators, options_for_select(collaborator_select_list, wiki.collaborators.map{|collaborator| collaborator.id}), {}, multiple: "multiple"
   .form-group
     = f.submit "Save", class: 'btn btn-success'

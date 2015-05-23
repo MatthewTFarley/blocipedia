@@ -38,3 +38,4 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pry-rails'
 gem 'redcarpet'
 gem 'letter_opener', group: :development
+gem 'will_paginate', '~> 3.0.5'

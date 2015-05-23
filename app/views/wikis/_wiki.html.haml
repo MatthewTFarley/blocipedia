@@ -4,21 +4,21 @@
 .panel.panel-body
   %p= @wiki.markdown_body
   %br
-  %row
+  %br
   - if @wiki.private && @wiki.collaborations != []
-    %h4#collaboration-header
-      .col-md-9
-        Collaborators
-      - if current_user.owns? @wiki
-        .col-md-3
-          Delete
-      %br
-  - @wiki.collaborations.each do |collaboration|
-    %row
-      .col-md-3
-        = collaboration.user.name
-      - if current_user.owns? @wiki
-        .col-md-1
-          %span.badge.delete
-            = link_to "", collaboration_path(collaboration), method: :delete, class: 'glyphicon glyphicon-unchecked', data: { confirm: 'Are you sure?' }
-      %br
+    .row#collaborator-row
+      .col-md-5
+        %table.table#collaborator-list
+          %tr
+            %td 
+              %h4 Collaborators
+            - if current_user.owns? @wiki
+              %td
+                %h4 Delete
+          - @wiki.collaborations.each do |collaboration|
+            %tr{:id => "collaboration-#{collaboration.id}"}
+              %td= collaboration.user.name
+              - if (current_user && current_user.owns?(@wiki))
+                %td
+                  %span.badge.delete
+                    = link_to "", collaboration_path(collaboration), method: :delete, remote: true, class: 'glyphicon glyphicon-unchecked'

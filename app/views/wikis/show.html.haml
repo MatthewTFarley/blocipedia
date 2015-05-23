@@ -5,7 +5,7 @@
   .panel.panel-footer
     .row
       .col-md-2#button-group
-        - if current_user
+        - if current_user && current_user.collaborator?(@wiki)
           = link_to "Edit", edit_wiki_path, class: 'btn btn-primary'
           - if current_user && current_user.destroy?(@wiki)
             = link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this wiki?' }

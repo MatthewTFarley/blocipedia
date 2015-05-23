@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       redirect_to root_url
     else
       flash[:error] = "Something went wrong. Please try again."
-      render "edit"
+      render "new"
     end
   end
   
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(user_params)
       flash[:notice] = "User profile was successfully updated."
-      redirect_to root_path
+      redirect_to wikis_path
     else
       flash[:error] = "Error saving profile changes. Please try again."
       render :edit

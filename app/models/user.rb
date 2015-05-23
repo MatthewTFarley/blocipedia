@@ -25,20 +25,24 @@ class User < ActiveRecord::Base
     standard?
   end
   
-  def edit?
-    standard?
-  end
-  
-  def owns?(resource)
-    id == resource.user_id
-  end
-  
-  def destroy?(resource)
-    admin? || owns?(resource)
+  def edit?(wiki)
+    standard? || collaborator?(wiki)
   end
 
-  def view?(resource)
-    admin? || owns?(resource) || !resource.private || resource.collaborators.includes(self)
+  def collaborator?(wiki)
+    wiki.collaborators.includes(wiki)
+  end
+  
+  def owns?(wiki)
+    id == wiki.user_id
+  end
+  
+  def destroy?(wiki)
+    admin? || owns?(wiki)
+  end
+
+  def view?(wiki)
+    admin? || owns?(wiki) || !wiki.private || collaborator?(wiki)
   end
   
   def skip_confirmation!
@@ -54,8 +58,25 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.role = "standard" unless self.role == "admin"
       save!
-      Wiki.publicize_wikis! self
+      self.publicize_wikis!
     end
+  end
+
+  def privately_owned_wikis
+    self.wikis.where(private: true)
+  end
+
+  def publicize_wikis!
+    wikis_to_publicize = self.wikis.where(private:true)
+    wikis_to_publicize.each do |wiki|
+      wiki.collaborations.each { |collaboration| collaboration.destroy! }
+      wiki.update! private: false
+    end
+  end
+
+  def viewable_wikis
+    return Wiki.all if self.admin?
+    return Wiki.public_wikis + self.privately_owned_wikis + self.collaborative_wikis
   end
   
   private

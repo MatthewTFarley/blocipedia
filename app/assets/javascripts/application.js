@@ -15,3 +15,9 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+setTimeout(function(){
+  $('.alert').fadeOut(function(){
+    $('.alert').remove();
+  });
+}, 5000);
