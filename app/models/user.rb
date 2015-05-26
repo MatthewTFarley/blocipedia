@@ -22,19 +22,19 @@ class User < ActiveRecord::Base
   end
   
   def create?
-    standard?
-  end
-  
-  def edit?(wiki)
-    standard? || collaborator?(wiki)
-  end
-
-  def collaborator?(wiki)
-    wiki.collaborators.includes(wiki)
+    standard? || premium? || admin?
   end
   
   def owns?(wiki)
     id == wiki.user_id
+  end
+
+  def collaborator?(wiki)
+    collaborative_wikis.include?(wiki)
+  end
+  
+  def edit?(wiki)
+    owns?(wiki) || collaborator?(wiki) || admin?
   end
   
   def destroy?(wiki)
@@ -66,17 +66,21 @@ class User < ActiveRecord::Base
     self.wikis.where(private: true)
   end
 
+  def viewable_wikis
+    wikis = if self.admin?
+      Wiki.all
+    else
+      Wiki.public_wikis + self.privately_owned_wikis + self.collaborative_wikis
+    end
+    wikis.sort_by{ |wiki| wiki.title.capitalize }
+  end
+
   def publicize_wikis!
     wikis_to_publicize = self.wikis.where(private:true)
     wikis_to_publicize.each do |wiki|
       wiki.collaborations.each { |collaboration| collaboration.destroy! }
       wiki.update! private: false
     end
-  end
-
-  def viewable_wikis
-    return Wiki.all if self.admin?
-    return Wiki.public_wikis + self.privately_owned_wikis + self.collaborative_wikis
   end
   
   private

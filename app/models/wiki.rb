@@ -3,7 +3,7 @@ class Wiki < ActiveRecord::Base
 
   belongs_to :user
   has_many :collaborations, dependent: :destroy
-  has_many :collaborators, through: :collaborations, dependent: :destroy, source: :user
+  has_many :collaborators, through: :collaborations, source: :user
   
   validates :title, presence: true
   validates :body, length: { minimum: 10 }, presence: true
@@ -18,7 +18,8 @@ class Wiki < ActiveRecord::Base
   end
 
   def self.public_wikis
-    where(private:false)
+    wikis = where(private:false)
+    wikis.sort_by{|wiki| wiki.title.capitalize}
   end
   
   private

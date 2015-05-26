@@ -21,8 +21,8 @@ class WikisController < ApplicationController
 
   def index
     @index = 1 # for table layout
-    return @wikis = Wiki.public_wikis.order(updated_at: :desc).paginate(page: params[:page], per_page: 10) if current_user.blank?
-    @wikis = current_user.viewable_wikis.sort_by{ |wiki| wiki.updated_at}.reverse.paginate(page: params[:page], per_page: 10)
+    return @wikis = Wiki.public_wikis.paginate(page: params[:page], per_page: 10) if current_user.blank?
+    @wikis = current_user.viewable_wikis.paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -33,7 +33,7 @@ class WikisController < ApplicationController
 
   def update
     if @wiki.update_attributes(wiki_params)
-      @wiki.collaborators = Collaboration.add_collaborators @wiki, params
+      @wiki.collaborators = Collaboration.add_collaborators @wiki, params, current_user
       @wiki.save!
       flash[:notice] = "Wiki successfully updated!"
       redirect_to @wiki
@@ -64,6 +64,6 @@ class WikisController < ApplicationController
   end
 
   def authorize
-    redirect_to wikis_path, flash: "You are not authorized to view that resource." unless @wiki.private == false || current_user.view?(@wiki)
+    redirect_to wikis_path, notice: "You are not authorized to view that resource." unless @wiki.private == false || current_user.view?(@wiki)
   end 
 end

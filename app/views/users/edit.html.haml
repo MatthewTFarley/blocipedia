@@ -1,32 +1,35 @@
-#main-well.col-xs-10.col-xs-offset-1.col-md-8.col-md-offset-2.well
-  %h2 Edit Profile
-  .row#form-row
-    .col-md-12
-      = form_for @user do |f|
-        - if @user.errors.any?
-          #error_explanation
-            %h2 Form is invalid
-            %ul
-              - @user.errors.full_messages.each do |message|
-                %li= message
-        .form-group
-          = f.label :name
-          = f.text_field :name, autofocus: true, class: 'form-control'
-        .form-group
-          = f.label :email
-          = f.email_field :email, class: 'form-control'
-        .form-group
-          = f.label :password
-          = f.password_field :password, class: 'form-control', placeholder: "Enter password"
-        .form-group
-          = f.label :password_confirmation
-          = f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter new password confirmation"
-        %big
-          %strong
-            %p= "Account Status: #{current_user.role.capitalize}"
-        .form-group
-          = f.submit "Update", class: 'btn btn-success', method: "put"
-        - if !(current_user.admin? || current_user.standard?)
-          = link_to "Downgrade Account", downgrade_path, class: 'btn btn-danger'
-        - elsif !current_user.admin?
-          = link_to "Upgrade to Premium", upgrade_path, class: 'btn btn-primary'
+.panel.panel-default
+  .panel-heading
+    .panel-title
+      %h2 Edit Profile
+  .panel-body
+    = form_for @user do |f|
+      - if @user.errors.any?
+        #error_explanation
+          %h2 Form is invalid
+          %ul
+            - @user.errors.full_messages.each do |message|
+              %li= message
+      .form-group
+        = f.label :name
+        = f.text_field :name, autofocus: true, class: 'form-control'
+      .form-group
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+      .form-group
+        = f.label :password
+        = f.password_field :password, class: 'form-control', placeholder: "Enter password"
+      .form-group
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter new password confirmation"
+      %big
+        %strong
+          %p= "Account Status: #{current_user.role.capitalize}"
+      .form-group
+        = f.submit "Update", class: 'btn btn-success', method: "put"
+      - if current_user.premium?
+        = link_to "Downgrade Account", downgrade_path, class: 'btn btn-danger'
+      - elsif !current_user.admin?
+        = link_to "Upgrade to Premium", upgrade_path, class: 'btn btn-primary'
+  .panel-footer
+    = link_to "Wikis", wikis_path

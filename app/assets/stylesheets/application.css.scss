@@ -3,39 +3,47 @@
 @import "bootstrap";
 
 .btn.btn-primary{
-  background-color: #AE9167;
-  border-color: #856941;
+  background-color: #6DA2A2;
+  border-color: #458787;
 }
-
 .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   color: white;
-  background-color: #856941;
-  border-color: #856941;
+  background-color: #A2C9C9;
+  border-color: #6DA2A2;
 }
-
+.btn.btn-success {
+  background-color: #458787;
+  border-color: #266C6C;
+}
+.btn.btn-success.btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
+  background-color: #6DA2A2;
+  border-color: #458787;
+}
 body {
-  background: #D1C5B7;
+  background: #A2C9C9;
   font-family: "Open Sans";
+}
+a {
+  color: #266C6C;
 }
 .navbar-default {
   border: none;
   margin-bottom: 0px;
 }
 #header {
-  background: #856941;
-  padding-right: 0px;
+  background: #458787;
+  padding-right: 15px;
 }
 #brand {
   color: white;
   &:hover {
-    background: #D1C5B7;
-    color: #0193B7;
+    background: #6DA2A2;
   }
 }
 .nav-tabs {
   border-bottom: none;
 }
-.nav-tabs > li > a {
+.navbar-default .navbar-nav > li > a {
   height: 51px;
   padding-top: 14px;
   border: none;
@@ -43,14 +51,31 @@ body {
   color: white;
   margin-right: 0px;
   &:hover {
-    background: #D1C5B7;
-    color: #0193B7;
+    background: #6DA2A2;
+    border-color: #458787;
+    color: white;
+    height: 50px;
   }
+}
+.navbar-default .navbar-toggle {
+  background-color: whitesmoke;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  padding-right: 0px;
+  margin-right: -15px;
+}
+.container > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-header, .container-fluid > .navbar-collapse {
+  padding-left: 0px;
 }
 #content {
   background: transparent;
 }
-
+.navbar-toggle {
+  background-color: rgb(192, 192, 192);
+}
 .jumbotron {
   margin-top: 10px;
   border: none;
@@ -72,14 +97,16 @@ body {
 }
 .panel {
   box-shadow: none;
+  border: none;
 }
-.panel.panel-heading {
-  background-color: whitesmoke;
+.panel-default .panel-heading {
+  background-color: #D5E9E9;
   border-bottom: 1px solid #dddddd;
 }
 .panel-title {
-  background-color: whitesmoke;
+  background-color: #D5E9E9;
 }
 .panel-footer {
   margin-bottom: 0px;
+  background-color: #D5E9E9;
 }

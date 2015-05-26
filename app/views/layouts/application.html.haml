@@ -8,16 +8,22 @@
     = csrf_meta_tags
     <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   %body
-    .navbar.navbar-default
+    .navbar.navbar-default.nav-bar-static-top
       .container-fluid#header
         .navbar-header
-          %a.navbar-brand#brand{href: root_path} Blocipedia
-        %ul.nav.nav-tabs.pull-left
+          = link_to "Blocipedia", wikis_path, class: "navbar-brand", id: "brand"
+          %button#nav-button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span#bar.icon-bar
+            %span#bar.icon-bar
+            %span#bar.icon-bar
+        %ul.nav.navbar-nav.navbar-right.collapse.navbar-collapse
           %li= link_to "About", about_path
-        %ul.nav.nav-tabs.pull-right
-          %li= link_to "Wikis", wikis_path
           - if current_user
-            %li= link_to "Create Wiki", new_wiki_path
+            %li
+              = link_to new_wiki_path do
+                %span.glyphicon.glyphicon-plus
+                New Wiki
             %li= link_to "#{current_user.name}", edit_user_path(current_user.id)
             %li= link_to "Log out", logout_path, method: "delete"
           - else

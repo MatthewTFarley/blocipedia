@@ -18,7 +18,7 @@
           - @wiki.collaborations.each do |collaboration|
             %tr{:id => "collaboration-#{collaboration.id}"}
               %td= collaboration.user.name
-              - if (current_user && current_user.owns?(@wiki))
+              - if current_user && current_user.owns?(@wiki)
                 %td
                   %span.badge.delete
                     = link_to "", collaboration_path(collaboration), method: :delete, remote: true, class: 'glyphicon glyphicon-unchecked'
