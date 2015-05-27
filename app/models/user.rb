@@ -70,7 +70,8 @@ class User < ActiveRecord::Base
     wikis = if self.admin?
       Wiki.all
     else
-      Wiki.public_wikis + self.privately_owned_wikis + self.collaborative_wikis
+      wikis = Wiki.public_wikis + self.privately_owned_wikis + self.collaborative_wikis
+      wikis.uniq
     end
     wikis.sort_by{ |wiki| wiki.title.capitalize }
   end

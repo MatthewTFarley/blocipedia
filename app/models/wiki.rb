@@ -1,5 +1,8 @@
 class Wiki < ActiveRecord::Base
+  extend FriendlyId
   after_initialize :initialize_privacy_level
+  
+  friendly_id :title, use: :slugged
 
   belongs_to :user
   has_many :collaborations, dependent: :destroy

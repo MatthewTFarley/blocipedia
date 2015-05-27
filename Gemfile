@@ -39,3 +39,4 @@ gem 'pry-rails'
 gem 'redcarpet'
 gem 'letter_opener', group: :development
 gem 'will_paginate', '~> 3.0.5'
+gem 'friendly_id', '~> 5.1.0'

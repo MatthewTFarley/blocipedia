@@ -56,7 +56,7 @@ class WikisController < ApplicationController
   private
   
   def set_wiki
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.friendly.find(params[:id])
   end
 
   def wiki_params
@@ -64,6 +64,9 @@ class WikisController < ApplicationController
   end
 
   def authorize
-    redirect_to wikis_path, notice: "You are not authorized to view that resource." unless @wiki.private == false || current_user.view?(@wiki)
+    return if current_user && current_user.view?(@wiki)
+    if @wiki.private
+      redirect_to wikis_path, notice: "You are not authorized to view that resource."
+    end
   end 
 end

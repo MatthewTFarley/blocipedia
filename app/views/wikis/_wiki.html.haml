@@ -5,14 +5,14 @@
   %p= @wiki.markdown_body
   %br
   %br
-  - if @wiki.private && @wiki.collaborations != []
+  - if @wiki.collaborations != []
     .row#collaborator-row
       .col-md-5
         %table.table#collaborator-list
           %tr
             %td 
               %h4 Collaborators
-            - if current_user.owns? @wiki
+            - if current_user && current_user.owns?(@wiki)
               %td
                 %h4 Delete
           - @wiki.collaborations.each do |collaboration|
