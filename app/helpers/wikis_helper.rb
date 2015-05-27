@@ -4,7 +4,7 @@ module WikisHelper
   end
 
   def collaborators_can_be_added?(wiki)
-    !current_user.standard? && wiki.private && User.count > 1
+    !current_user.standard? && User.count > 1
   end
 
   def wiki_is_editable?(wiki)

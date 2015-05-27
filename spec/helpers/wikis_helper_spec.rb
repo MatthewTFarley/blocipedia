@@ -55,7 +55,7 @@ RSpec.describe WikisHelper, :type => :helper do
       current_user = @premium_user
       helper.class.send(:define_method, :current_user, -> {current_user})
 
-      expect(helper.collaborators_can_be_added?(@public_wiki)).to eq(false) # false because wiki is public
+      expect(helper.collaborators_can_be_added?(@public_wiki)).to eq(true) # true because user is premium
       expect(helper.collaborators_can_be_added?(@private_wiki)).to eq(true) # true because wiki is new & user is premium
 
       @standard_user.destroy!
