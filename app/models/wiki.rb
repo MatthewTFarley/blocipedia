@@ -24,6 +24,12 @@ class Wiki < ActiveRecord::Base
     wikis = where(private:false)
     wikis.sort_by{|wiki| wiki.title.capitalize}
   end
+
+  def add_collaborators user_ids
+    return [] if user_ids.blank?
+    sanitized_user_ids = user_ids.reject{|element| element.blank?}
+    self.collaborators = User.find(sanitized_user_ids)
+  end
   
   private
 

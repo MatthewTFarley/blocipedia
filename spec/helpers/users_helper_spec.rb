@@ -11,7 +11,7 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe UsersHelper, :type => :helper do
-  it "collects user name and user id of potential collaborators" do
+  it "should collect user name and user id of potential collaborators" do
     current_user = User.create! name: "matt", email: "matt@example.com", password: "matt", password_confirmation: "matt"
     user2 = User.create! name: "john", email: "john@example.com", password: "john", password_confirmation: "john"
 

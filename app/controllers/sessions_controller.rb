@@ -4,16 +4,17 @@ class SessionsController < ApplicationController
     
   def create
     user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
-      if user.confirmed_at
-        session[:user_id] = user.id
-        redirect_to wikis_path, notice: "Welcome #{user.name}!"
-      else
-        flash.now.alert = "Please confirm your account by checking your email for a confirmation link."
-        render "new"
-      end
-    else
+
+    unless user && user.authenticate(params[:password])
       flash.now.alert = "Email or password is invalid"
+      return render "new"
+    end
+
+    if user.confirmed?
+      session[:user_id] = user.id
+      redirect_to wikis_path, notice: "Welcome #{user.name}!"
+    else
+      flash.now.alert = "Please confirm your account by checking your email for a confirmation link."
       render "new"
     end
   end

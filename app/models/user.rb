@@ -29,6 +29,11 @@ class User < ActiveRecord::Base
     id == wiki.user_id
   end
 
+  def confirmed?
+    return false if self.confirmed_at.blank?
+    true
+  end
+
   def collaborator?(wiki)
     collaborative_wikis.include?(wiki)
   end

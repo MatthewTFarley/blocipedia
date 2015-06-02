@@ -12,7 +12,7 @@
   = form_group_tag(wiki.errors[:body]) do
     = f.label :body
     = f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body"
-  - if private_checkbox_is_viewable?(wiki)
+  - if private_checkbox_is_available?(wiki)
     .form-group
       = f.check_box :private
       = f.label :private

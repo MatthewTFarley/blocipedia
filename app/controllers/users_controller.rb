@@ -9,11 +9,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.confirmation_token = SecureRandom.hex(16)
+
     if @user.save
       flash[:notice] = "Welcome to Blocipedia #{@user.name}! Check your email for a link to confirm your account."
-      if !@user.confirmed_at
-        UserMailer.confirmation_email(@user).deliver
-      end
+      UserMailer.confirmation_email(@user).deliver
       redirect_to root_url
     else
       flash[:error] = "Something went wrong. Please try again."

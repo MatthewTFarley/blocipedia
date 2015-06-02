@@ -149,6 +149,14 @@ describe User do
     end
   end
 
+  describe "#confirmed?" do
+    it "should return 'true' if the user has confirmed her account" do
+      unconfirmed_user = User.new name: "user", email: "user@user.com", password: "password"
+      expect(@premium_user.confirmed?).to eq(true)
+      expect(unconfirmed_user.confirmed?).to eq(false)
+    end
+  end  
+
   describe "#edit?" do
     it "should return 'true' if a user has permission to edit a given wiki" do
       @private_wiki.collaborators = [@user]

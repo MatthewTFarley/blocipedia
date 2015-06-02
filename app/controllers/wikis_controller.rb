@@ -33,7 +33,8 @@ class WikisController < ApplicationController
 
   def update
     if @wiki.update_attributes(wiki_params)
-      @wiki.collaborators = Collaboration.add_collaborators @wiki, params, current_user
+      return head :unauthorized unless current_user.owns? @wiki
+      @wiki.add_collaborators params[:wiki][:collaborators]
       @wiki.save!
       flash[:notice] = "Wiki successfully updated!"
       redirect_to @wiki

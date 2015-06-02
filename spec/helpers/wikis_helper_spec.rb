@@ -29,19 +29,19 @@ RSpec.describe WikisHelper, :type => :helper do
     @new_wiki = Wiki.new
   end
 
-  describe "private_checkbox_is_viewable?" do
+  describe "private_checkbox_is_available?" do
     it "should return 'true' if a user has permission to see the private checkbox" do
       current_user = @standard_user
       helper.class.send(:define_method, :current_user, -> {current_user})
 
-      expect(helper.private_checkbox_is_viewable?(@public_wiki)).to eq(false) # false becasue user is standard
-      expect(helper.private_checkbox_is_viewable?(@new_wiki)).to eq(false)
+      expect(helper.private_checkbox_is_available?(@public_wiki)).to eq(false) # false becasue user is standard
+      expect(helper.private_checkbox_is_available?(@new_wiki)).to eq(false)
 
       current_user = @premium_user
       helper.class.send(:define_method, :current_user, -> {current_user})
 
-      expect(helper.private_checkbox_is_viewable?(@private_wiki)).to eq(true) # true because user is premium
-      expect(helper.private_checkbox_is_viewable?(@new_wiki)).to eq(true)
+      expect(helper.private_checkbox_is_available?(@private_wiki)).to eq(true) # true because user is premium
+      expect(helper.private_checkbox_is_available?(@new_wiki)).to eq(true)
     end
   end
 
