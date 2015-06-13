@@ -21,4 +21,4 @@
       = f.label 'Add Collaborators:'
       = f.select :collaborators, options_for_select(collaborator_select_list, wiki.collaborators.map{|collaborator| collaborator.id}), {}, multiple: "multiple"
   .form-group
-    = f.submit "Save", class: 'btn btn-success'
+    = f.submit "Save", class: 'btn btn-success', id: 'new-wiki-button'
