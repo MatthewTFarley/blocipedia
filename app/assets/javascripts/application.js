@@ -23,7 +23,7 @@ setTimeout(function(){
 }, 5000);
 
 $(document).ready(function() {
-  $('#new-wiki-button').on('click', function() {
-    blocmetrics.report('New Wiki');
+  $(document).on('click', function() {
+    blocmetrics.report('a click');
   });
 });
