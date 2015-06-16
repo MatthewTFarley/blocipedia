@@ -11,13 +11,12 @@
       %td
         %h4
           %strong Author
-    - @wikis.each do |wiki|
+    - @wikis.each_with_index do |wiki, index|
       %tr
         %td
-          %strong= @index
+          %strong= index + 1
         %td= link_to wiki.title, wiki
         %td=  wiki.user.name
-        - @index += 1
   .panel-footer  
     = will_paginate @wikis, class: "apple_pagination"
     %br
